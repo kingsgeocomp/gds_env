@@ -41,7 +41,7 @@ And you should see one image with the name `gsa`.
 The container can be run as:
 
 ```
-> docker run --rm -ti -p 8888:8888 -v ${pwd}:/home/jovyan/host darribas/gas:1.0
+> docker run --rm -ti -p 8888:8888 -v ${pwd}:/home/jovyan/host jreades/gsa:1.0
 ```
 
 <img src="JupyterLab.png" width="500">
