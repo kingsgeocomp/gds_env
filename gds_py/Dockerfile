@@ -11,66 +11,7 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 RUN conda update conda --yes \
     && conda config --add channels conda-forge \
     && conda config --set channel_priority strict \
-    && conda install --yes --quiet \
-     'python=3.7' \
-     'bambi' \
-     'black' \
-     'bokeh' \
-     'colorama' \
-     'contextily==1.0rc2' \
-     'cython' \
-     'dask' \
-     'dask-ml' \
-     'datashader' \
-     'dill' \
-     'feather-format' \
-     'folium' \ 
-     'geojson' \
-     'geopandas' \
-     'geopy' \
-     'georasters' \
-     'gitdb2' \
-     'gitpython' \
-     'hdbscan' \
-     'ipyleaflet' \
-     'ipyparallel' \
-     'ipywidgets' \
-     'jupyterlab' \ 
-     'lxml' \ 
-     'mapclassify' \
-     'mkl-service' \
-     'mplleaflet' \
-     'mysql-connector-python' \ 
-     'nb_conda' \ 
-     'nbdime' \
-     'networkx' \
-     'osmnx' \
-     'palettable' \
-     'pandana' \
-     'pillow' \
-     'pointpats' \ 
-     'polyline' \
-     'pyarrow' \
-     'pykrige' \
-     'pymc3' \
-     'pysal=2.0.0' \
-     'pystan' \
-     'qgrid' \
-     'rasterio' \
-     'rasterstats' \
-     'requests' \ 
-     'scikit-image' \
-     'scikit-learn' \
-     'seaborn' \
-     'simplejson' \
-     'smmap2' \
-     'sqlite' \ 
-     'sqlalchemy' \ 
-     'statsmodels' \
-     'tzlocal' \
-     'urbanaccess' \
-     'xlrd' \
-     'xlsxwriter' \
+    && conda install --yes --quiet gsa.yml \
      && conda clean --all --yes --force-pkgs-dirs \
      && find /opt/conda/ -follow -type f -name '*.a' -delete \
      && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
