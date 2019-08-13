@@ -46,71 +46,6 @@ RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-experimental \
     tk-dev \
     unixodbc-dev
 
-#--- R ---#
-# https://github.com/rocker-org/rocker-versioned/blob/master/r-ver/Dockerfile
-# Look at: http://sites.psu.edu/theubunturblog/installing-r-in-ubuntu/
-
-RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/" >> /etc/apt/sources.list \
-  && sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
-  && apt-get update \
-  && apt-get install -y \
-    r-base \
-    r-base-dev 
-
-RUN R -e "install.packages(c( \
-            'arm', \
-            'BiocManager', \
-            'classInt', \
-            'deldir', \
-            'devtools', \
-            'feather', \
-            'ggmap', \
-            'GISTools', \
-            'gstat', \
-            'hdf5r', \
-            'hexbin', \
-            'igraph', \
-            'knitr', \
-            'lidR', \
-            'lme4', \
-            'mapdata', \
-            'maptools', \
-            'mapview', \
-            'ncdf4', \
-            'nlme', \
-            'plyr', \
-            'proj4', \
-            'RColorBrewer', \
-            'RandomFields', \
-            'RNetCDF', \
-            'randomForest', \
-            'raster', \
-            'RCurl', \
-            'reshape2', \
-            'rgdal', \
-            'rgeos', \
-            'rlas', \
-            'rmarkdown', \
-            'RODBC', \
-            'RSQLite', \
-            'sf', \
-            'shiny', \
-            'sp', \
-            'spacetime', \
-            'spatstat', \
-            'spdep', \
-            'splancs', \
-            'tidyverse', \
-            'tmap', \
-            'TraMineR', \
-            'tufte', \
-            'geoR', \
-            'geosphere' \
-            ), repos='https://cran.rstudio.com');" \
-## from bioconductor
-   && R -e "library(BiocManager); \
-            BiocManager::install('rhdf5')"
-
 # Re-attach conda to path
 ENV PATH="/opt/conda/bin:${PATH}"
 
@@ -119,14 +54,9 @@ ENV PATH="/opt/conda/bin:${PATH}"
 USER root
 
 RUN ln -s /opt/conda/bin/jupyter /usr/local/bin
-RUN R -e "install.packages('IRkernel'); \
-          library(IRkernel); \
-          IRkernel::installspec(prefix='/opt/conda/');"
 ENV LD_LIBRARY_PATH /usr/local/lib/R/lib/:${LD_LIBRARY_PATH}
 RUN fix-permissions $HOME \
   && fix-permissions $CONDA_DIR
-
-RUN pip install -U --no-deps rpy2
 
 #--- Decktape ---#
 

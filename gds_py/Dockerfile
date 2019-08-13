@@ -24,35 +24,48 @@ RUN conda update conda --yes \
      'datashader' \
      'dill' \
      'feather-format' \
+     'folium' \ 
+     'geojson' \
      'geopandas' \
      'geopy' \
+     'georasters' \
      'gitdb2' \
      'gitpython' \
      'hdbscan' \
      'ipyleaflet' \
      'ipyparallel' \
      'ipywidgets' \
+     'jupyterlab' \ 
+     'lxml' \ 
      'mapclassify' \
      'mkl-service' \
      'mplleaflet' \
+     'mysql-connector-python' \ 
+     'nb_conda' \ 
      'nbdime' \
      'networkx' \
      'osmnx' \
      'palettable' \
      'pandana' \
      'pillow' \
+     'pointpats' \ 
      'polyline' \
      'pyarrow' \
+     'pykrige' \
      'pymc3' \
-     'pysal' \
+     'pysal=2.0.0' \
      'pystan' \
      'qgrid' \
      'rasterio' \
      'rasterstats' \
+     'requests' \ 
      'scikit-image' \
      'scikit-learn' \
      'seaborn' \
+     'simplejson' \
      'smmap2' \
+     'sqlite' \ 
+     'sqlalchemy' \ 
      'statsmodels' \
      'tzlocal' \
      'urbanaccess' \
@@ -77,10 +90,20 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
  && echo "c.NotebookApp.default_url = '/lab'" \
  >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 
+# Install via pip
+pip3 install --yes \
+     'pykrige' \ 
+     'googlemaps' \ 
+     'smopy' \ 
+     'git+http://github.com/kingsgeocomp/SOMPY#egg=sompy'
+
 # Clean up
 RUN npm cache clean --force \
  && rm -rf $CONDA_DIR/share/jupyter/lab/staging\
  && rm -rf /home/$NB_USER/.cache/yarn
+
+# Set up kernel
+python -m ipykernel isntall --display-name "GSA 2019"
 
 #--- htop ---#
 
@@ -88,14 +111,6 @@ USER root
 
 RUN apt-get update \
  && apt-get install -y --no-install-recommends software-properties-common htop
-
-#--- Texbuild ---#
-
-RUN wget https://gist.github.com/darribas/e2a560e562139b139b67b7d1c998257c/raw/b2ec84e8eb671f3ebc2149a4d94d28a460ef9a7e/texBuild.py \
- && wget https://gist.github.com/darribas/e2a560e562139b139b67b7d1c998257c/raw/92b64d2d95768f1edc34a79dd13f957cc0b87bb3/install_texbuild.py \
- && cp texBuild.py /bin/texBuild.py \
- && python install_texbuild.py \
- && rm install_texbuild.py texBuild*
 
 # Switch back to user to avoid accidental container runs as root
 USER $NB_UID
