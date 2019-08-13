@@ -1,20 +1,16 @@
-# `gds_env`: A containerised platform for Geographic Data Science
+# `gsa_env`: A stripped down Python platform for Geographic Data Science
+
+# DOES NOT YET WORK! 
+
+Am in the process of updating from Dani's work to remove R and TeX as we don't need these for teaching but do have a few more Python packages that we _do_ use.
 
 [![](https://images.microbadger.com/badges/image/darribas/gds:3.0.svg)](https://microbadger.com/images/darribas/gds:3.0 "Get your own image badge on microbadger.com")
 [![](https://images.microbadger.com/badges/version/darribas/gds:3.0.svg)](https://microbadger.com/images/darribas/gds:3.0 "Get your own version badge on microbadger.com")
 
-* [Dani Arribas-Bel](http://darribas.org)
-  [[@darribas](http://twitter.com/darribas)]
-
 This repository contains a `docker` container that includes:
 
 * A full Python stack ready for geospatial analysis (see `gds_stack.yml` for a detailed list).
-* A full R stack ready for geospatial analysis (see `install.R` for a detailed list).
-* Both the [`IRkernel`](https://github.com/IRkernel/IRkernel) and [`rpy2`](https://bitbucket.org/rpy2/rpy2) channels to interact with R through Python.
-* A full LaTeX distribution.
 * Additional development utilities (e.g. `pandoc`, `git`, `decktape`, etc.).
-
-It is rather heavy (around 10GB) but it is meant to provide a fully isolated environment that can be deployed in a wide array of contexts and encompass several situations.
 
 ## Requirements
 
@@ -24,7 +20,7 @@ You will need [Docker](https://www.docker.com) to be able to install the GDS env
 
 You can install this container by simply running:
 
-> `docker pull darribas/gds:3.0`
+> `docker pull jreades/gsa:1.0`
 
 [Note that you'll need [Docker](https://www.docker.com) installed on your machine]
 
@@ -32,20 +28,20 @@ You can install this container by simply running:
 
 If, instead, you want to build from source, the Docker image can be built by running:
 
-> `docker build -t darribas/gds:3.0 .`
+> `docker build -t jreades/gsa:1.0 .`
 
 You can check it has been built correctly by:
 
 > `docker image ls`
 
-And you should see one image with the name `gds`.
+And you should see one image with the name `gsa`.
 
 ## Running
 
 The container can be run as:
 
 ```
-> docker run --rm -ti -p 8888:8888 -v ${pwd}:/home/jovyan/host darribas/gds:3.0
+> docker run --rm -ti -p 8888:8888 -v ${pwd}:/home/jovyan/host darribas/gas:1.0
 ```
 
 <img src="JupyterLab.png" width="500">
@@ -59,6 +55,8 @@ A couple of notes on the command above:
 
 ## Citing
 
+This draws heavily on Dani Arribas-Bel's work for Liverpool. If you use this, you should cite him.
+
 [![DOI](https://zenodo.org/badge/65582539.svg)](https://zenodo.org/badge/latestdoi/65582539)
 
 ```bibtex
@@ -70,8 +68,3 @@ A couple of notes on the command above:
   date = {2019-08-06},
 }
 ```
-
----
-
-[<img src="gdsl.png" width="250">](https://www.liverpool.ac.uk/geographic-data-science/)
-
