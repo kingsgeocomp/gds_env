@@ -15,9 +15,9 @@ before_install:
   - conda-env create -f gds_stack.yml
 
 script: 
-  - source activate gds
+  - source activate gsa2019
     #- jupyter nbconvert --to markdown --execute --ExecutePreprocessor.timeout=480 --allow-errors check_gds_stack.ipynb --stdout
-  - jupyter nbconvert --to markdown --execute --ExecutePreprocessor.timeout=480 check_gds_stack.ipynb
+    # - jupyter nbconvert --to markdown --execute --ExecutePreprocessor.timeout=480 check_gds_stack.ipynb
     #- conda list --explicit
     #- source activate gds_fixed
     #- jupyter nbconvert --to markdown --execute --ExecutePreprocessor.timeout=480 check_gds_stack.ipynb
@@ -25,7 +25,7 @@ script:
 notifications:
     email:
         recipients:
-            - daniel.arribas.bel@gmail.com
+            - jreades@gmail.com
         on_failure: always
 
 
