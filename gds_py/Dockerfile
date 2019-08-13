@@ -1,7 +1,7 @@
 # July'19
 FROM jupyter/minimal-notebook:307ad2bb5fce
 
-MAINTAINER Dani Arribas-Bel <D.Arribas-Bel@liverpool.ac.uk>
+MAINTAINER Jon Reades <jonathan.reades@kcl.ac.uk>
 
 # https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/Dockerfile
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -114,4 +114,3 @@ RUN apt-get update \
 
 # Switch back to user to avoid accidental container runs as root
 USER $NB_UID
-

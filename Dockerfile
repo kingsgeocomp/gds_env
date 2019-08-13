@@ -1,17 +1,12 @@
 # Ubuntu Bionic 18.04 at Aug'19
 FROM darribas/gds_py:3.0
 
-MAINTAINER Dani Arribas-Bel <D.Arribas-Bel@liverpool.ac.uk>
+MAINTAINER Jon Reades <jonathan.reades@kcl.ac.uk>
 
 # https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/Dockerfile
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 USER root
-
-# Remove Conda from path to not interfere with R install
-RUN echo ${PATH}
-ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-RUN echo ${PATH}
 
 #--- Utilities ---#
 
@@ -54,7 +49,6 @@ ENV PATH="/opt/conda/bin:${PATH}"
 USER root
 
 RUN ln -s /opt/conda/bin/jupyter /usr/local/bin
-ENV LD_LIBRARY_PATH /usr/local/lib/R/lib/:${LD_LIBRARY_PATH}
 RUN fix-permissions $HOME \
   && fix-permissions $CONDA_DIR
 
@@ -67,4 +61,3 @@ RUN npm install -g decktape
 
 # Switch back to user to avoid accidental container runs as root
 USER $NB_UID
-
