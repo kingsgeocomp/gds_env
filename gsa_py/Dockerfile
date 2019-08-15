@@ -14,13 +14,13 @@ RUN conda install --yes --quiet --file /tmp/conda_requirements.txt \
     && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
     && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
     && conda list
-COPY . /tmp/
+#COPY . /tmp/
 
 # Install via pip
 # --no-deps -- after making sure you have the conda libs installed
 COPY pip_requirements.txt /tmp/
 RUN pip install --no-cache-dir --no-deps -r /tmp/pip_requirements.txt 
-COPY . /tmp/
+#COPY . /tmp/
 
 # Enable widgets in Jupyter
 # RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
@@ -28,4 +28,5 @@ COPY . /tmp/
 # && jupyter labextension update nbdime-jupyterlab \
 
 # Set up kernel
-CMD python -m ipykernel install --display-name "GSA 2019"
+CMD python -m ipykernel install --display-name "GSA 2019" --user
+
