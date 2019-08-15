@@ -33,5 +33,7 @@ RUN jupyter labextension install @jupyterlab/toc \
     && jupyter labextension install @ryantam626/jupyterlab_code_formatter
 
 # Set up kernel
-CMD python -m ipykernel install --display-name "GSA 2019" --user
+RUN python -m ipykernel install --display-name "GSA 2019" --user
+
+COPY *.ipynb /home/$NB_USER/
 
