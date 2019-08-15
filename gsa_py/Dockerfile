@@ -7,7 +7,6 @@ MAINTAINER Jon Reades <jonathan.reades@kcl.ac.uk>
 # Additional conda libs not installed 
 # by Dani's version 
 RUN conda update conda --yes \
-    && conda config --add channels conda-forge \
     && conda config --set channel_priority strict \
     && conda install --yes --quiet \ 
     'beautifulsoup4' \ 
