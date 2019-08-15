@@ -24,14 +24,20 @@ RUN pip install --no-cache-dir --no-deps -r /tmp/pip_requirements.txt
 
 # Enable widgets in Jupyter
 RUN jupyter labextension install @jupyterlab/toc \
-    && jupyter labextension install jupyter-matplotlib \ 
-#    && jupyter labextension install pylantern \ 
-#    && jupyter labextension install @oriolmirosa/jupyterlab_materialdarker \ 
-#    && jupyter labextension install @jupyterlab/geojson-extension \ 
-#    && jupyter labextension install @jupyterlab/mathjax3-extension \ 
-#    && jupyter labextension install @jupyterlab/plotly-extension \
-#    && jupyter labextension install @krassowski/jupyterlab_go_to_definition \
-#    && jupyter labextension install @ryantam626/jupyterlab_code_formatter \ 
+    && jupyter labextension install --no-build jupyter-matplotlib \ 
+# Doesn't work currently
+#    && jupyter labextension install --no-build pylantern \ 
+# Doesn't work currently
+#    && jupyter labextension install --no-build @oriolmirosa/jupyterlab_materialdarker \ 
+    && jupyter labextension install --no-build ipysheet \ 
+    && jupyter labextension install --no-build plotlywidget \ 
+    && jupyter labextension install --no-build @jpmorganchase/perspective-jupyterlab \ 
+    && jupyter labextension install --no-build @jupyterlab/mathjax3-extension \ 
+    && jupyter labextension install --no-build @jupyterlab/geojson-extension \ 
+    && jupyter labextension install --no-build @jupyterlab/plotly-extension \ 
+    && jupyter labextension install --no-build @krassowski/jupyterlab_go_to_definition \
+    && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter \ 
+    && jupyter lab build \ 
     && jupyter nbextension enable --py widgetsnbextension
 
 # Set up kernel
