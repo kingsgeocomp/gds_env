@@ -1,0 +1,16 @@
+beautifulsoup4 
+folium
+geojson 
+georasters 
+joblib 
+jupyterlab 
+libspatialite 
+lxml 
+mysql-connector-python 
+nodejs 
+pointpats 
+pykrige
+pyshp
+requests 
+simplejson 
+sqlalchemy 
