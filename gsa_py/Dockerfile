@@ -28,7 +28,9 @@ RUN jupyter labextension install @jupyterlab/toc \
     && jupyter labextension install @oriolmirosa/jupyterlab_materialdarker \ 
     && jupyter labextension install @jupyterlab/geojson-extension \ 
     && jupyter labextension install @jupyterlab/mathjax3-extension \ 
-    && jupyter labextension install @jupyterlab/plotly-extension
+    && jupyter labextension install @jupyterlab/plotly-extension \
+    && jupyter labextension install @krassowski/jupyterlab_go_to_definition \ 
+    && jupyter labextension install @ryantam626/jupyterlab_code_formatter
 
 # Set up kernel
 CMD python -m ipykernel install --display-name "GSA 2019" --user
