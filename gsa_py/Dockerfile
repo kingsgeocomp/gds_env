@@ -43,5 +43,7 @@ RUN jupyter labextension install @jupyterlab/toc \
 # Set up kernel
 RUN python -m ipykernel install --display-name "GSA 2019" --user
 
+#ADD *.ipynb /home/$NB_USER/host/notebooks/
+
 COPY *.ipynb /home/$NB_USER/
 
