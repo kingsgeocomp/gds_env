@@ -83,7 +83,7 @@ dependencies:
   - polyline 
   - pyarrow 
   - pykrige 
-  - pymc3 
+  #- pymc3 # Not well-supported on Windows 
   - pysal=2.0.0
   - pyshp 
   - pystan 
