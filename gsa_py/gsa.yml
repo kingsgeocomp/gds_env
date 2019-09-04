@@ -39,6 +39,7 @@ channels:
 dependencies:
   - python=3.6
   - pip 
+  - git 
   #- bambi 
   #- black 
   - bokeh 
@@ -87,7 +88,7 @@ dependencies:
   - pysal=2.0.0
   - pyshp 
   - pystan 
-  - qgrid 
+  #- qgrid 
   - rasterio
   - rasterstats
   - requests 
