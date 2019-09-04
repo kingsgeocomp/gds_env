@@ -82,9 +82,9 @@ dependencies:
   - pillow 
   - pointpats 
   - polyline 
-  - pyarrow 
+  - pyarrow==0.14.* 
   - pykrige 
-  - pymc3 
+  #- pymc3 # Not well-supported on Windows 
   - pysal=2.0.0
   - pyshp 
   - pystan 
