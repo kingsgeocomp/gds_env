@@ -1,25 +1,41 @@
-FROM darribas/gds_py:3.0
+# https://github.com/jupyter/docker-stacks/blob/master/docs/using/selecting.md
+# 2 Sept 2019
+#FROM jupyter/minimal-notebook:82d1d0bf0867 as jup
+
+# July'19
+FROM jupyter/minimal-notebook:307ad2bb5fce
 
 MAINTAINER Jon Reades <jonathan.reades@kcl.ac.uk>
+ENV release_nm gsa2019
+ENV kernel_nm 'GSA 2019'
+
+# https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/Dockerfile
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 #--- Python ---#
 
-COPY conda_requirements.txt /tmp/
+# Get conda updated and set up before installing
+# any packages
+RUN conda update conda --yes \
+    && conda config --add channels conda-forge \
+    && conda config --set channel_priority strict
 
-# Additional conda libs not installed 
-# by Dani's version 
-RUN conda install --yes --quiet --file /tmp/conda_requirements.txt \ 
+# Now install the packages -- we 
+COPY gsa.yml /tmp/
+RUN conda-env create -f gsa.yml \ 
     && conda clean --all --yes --force-pkgs-dirs \
     && find /opt/conda/ -follow -type f -name '*.a' -delete \
     && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
     && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
     && conda list
-#COPY . /tmp/
+
+RUN conda activate release_nm \ 
+    && python -m ipykernel install --name release_nm --display-name kernel_nm \
 
 # Install via pip
 # --no-deps -- after making sure you have the conda libs installed
-COPY pip_requirements.txt /tmp/
-RUN pip install --no-cache-dir --no-deps -r /tmp/pip_requirements.txt 
+#COPY pip_requirements.txt /tmp/
+#RUN pip install --no-cache-dir --no-deps -r /tmp/pip_requirements.txt 
 #COPY . /tmp/
 
 # Enable widgets in Jupyter
@@ -31,7 +47,7 @@ RUN jupyter labextension install @jupyterlab/toc \
 #    && jupyter labextension install --no-build @oriolmirosa/jupyterlab_materialdarker \ 
     && jupyter labextension install --no-build ipysheet \ 
     && jupyter labextension install --no-build plotlywidget \ 
-    && jupyter labextension install --no-build @jpmorganchase/perspective-jupyterlab \ 
+ #   && jupyter labextension install --no-build @jpmorganchase/perspective-jupyterlab \ 
     && jupyter labextension install --no-build @jupyterlab/mathjax3-extension \ 
     && jupyter labextension install --no-build @jupyterlab/geojson-extension \ 
     && jupyter labextension install --no-build @jupyterlab/plotly-extension \ 
@@ -40,10 +56,10 @@ RUN jupyter labextension install @jupyterlab/toc \
     && jupyter lab build \ 
     && jupyter nbextension enable --py widgetsnbextension
 
-# Set up kernel
-RUN python -m ipykernel install --display-name "GSA 2019" --user
-
-#ADD *.ipynb /home/$NB_USER/host/notebooks/
+RUN conda deactivate 
 
 COPY *.ipynb /home/$NB_USER/
 
+# To push
+# docker tag <IMAGE ID> jreades/gsa:1.0
+# docker push jreades/gsa:1.0

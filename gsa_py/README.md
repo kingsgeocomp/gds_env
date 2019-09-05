@@ -11,3 +11,12 @@ Or pull it directly from Docker Hub:
 ```
 docker pull darribas/gds_py
 ```
+
+#### To Kill an Intermediate Process/Image
+
+```bash
+docker rm -f $(docker ps -aq)
+docker image ls
+docker rmi <image name>
+```
+
