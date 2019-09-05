@@ -1,3 +1,0 @@
-googlemaps
-smopy
--e git+http://github.com/kingsgeocomp/SOMPY#egg=sompy
