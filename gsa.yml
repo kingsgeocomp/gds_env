@@ -8,6 +8,12 @@
 # value specified as a configuration parameter below (the first line that does *not* 
 # start with a hash (#). All the commands below should be run from the Terminal.
 #
+#######################
+# NOTE: in the below, wherever you see '{name}'
+# you should replace that with the name of the 
+# environment you are installing (e.g. `gsa2019`).
+#######################
+#
 # If you've already installed this environment before:
 #   conda remove --name {name} --all
 #
