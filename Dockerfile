@@ -1,4 +1,16 @@
 
+# How to pull and run this image
+# > docker pull jreades/gsa:1.0
+# > docker run --rm -ti -p 8888:8888 -v ${PWD}:/home/jovyan/work jreades/gsa:1.0
+#
+# How to build
+# > docker build -t jreades/gsa:1.0 --compress .
+# How to push an updated image
+# > docker tag jreades/gsa:1.0 jreades/gsa:2019
+# > docker tag jreades/gsa:1.0 jreades/gsa:latest
+# > docker login docker.io
+# > docker push jreades/gsa:1.0 jreades/gsa:latest
+#
 #--- Build from Jupyter-provided Minimal Install ---#
 # https://github.com/jupyter/docker-stacks/blob/master/docs/using/selecting.md
 # 2 Sept 2019
@@ -113,3 +125,5 @@ RUN wget https://gist.github.com/darribas/e2a560e562139b139b67b7d1c998257c/raw/b
 USER $NB_UID
 
 #COPY *.ipynb /home/$NB_USER/
+
+RUN echo "Build complete."
