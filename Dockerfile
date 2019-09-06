@@ -1,4 +1,3 @@
-
 # How to pull and run this image
 # > docker pull jreades/gsa:1.0
 # > docker run --rm -ti -p 8888:8888 -v ${PWD}:/home/jovyan/work jreades/gsa:1.0

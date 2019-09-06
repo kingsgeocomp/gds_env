@@ -1,20 +1,15 @@
-# `gsa_env`: A stripped down Python platform for Geographic Data Science
+# `gsa_env`: a Python platform for Geographic Data Science
 
-# DOES NOT YET WORK! 
-
-Am in the process of updating from Dani's work to remove R and TeX as we don't need these for teaching but do have a few more Python packages that we _do_ use.
-
-[![](https://images.microbadger.com/badges/image/darribas/gds:3.0.svg)](https://microbadger.com/images/darribas/gds:3.0 "Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/darribas/gds:3.0.svg)](https://microbadger.com/images/darribas/gds:3.0 "Get your own version badge on microbadger.com")
+This is a fork from Dani's work (see link below for citing) to remove R as we don't need this for teaching but do have a few more Python packages that we _do_ use at King's.
 
 This repository contains a `docker` container that includes:
 
-* A full Python stack ready for geospatial analysis (see `gds_stack.yml` for a detailed list).
-* Additional development utilities (e.g. `pandoc`, `git`, `decktape`, etc.).
+* A full Python stack ready for geospatial analysis (see `gsa.yml` for a detailed list) and an alternate, lighter weight YAML file (`gsa_win.yml`) for direct installation on Windows.
+* Additional development utilities (e.g. `pandoc`, `git`, etc.).
 
 ## Requirements
 
-You will need [Docker](https://www.docker.com) to be able to install the GDS environment.
+You will need [Docker](https://www.docker.com) to be able to install the GSA environment.
 
 ## Installing
 
