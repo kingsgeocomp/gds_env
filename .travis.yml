@@ -12,15 +12,13 @@ before_install:
   - export PATH=`pwd`/miniconda/bin:$PATH
   - conda update --yes conda
   - conda install --yes psutil yaml pyyaml
-  - conda-env create -f gds_stack.yml
+  - conda-env create -f gsa_stack.yml
 
 script: 
-  - source activate gsa2019
-    #- jupyter nbconvert --to markdown --execute --ExecutePreprocessor.timeout=480 --allow-errors check_gds_stack.ipynb --stdout
-    # - jupyter nbconvert --to markdown --execute --ExecutePreprocessor.timeout=480 check_gds_stack.ipynb
-    #- conda list --explicit
-    #- source activate gds_fixed
-    #- jupyter nbconvert --to markdown --execute --ExecutePreprocessor.timeout=480 check_gds_stack.ipynb
+  - conda activate gsa2019
+    - jupyter nbconvert --to markdown --execute --ExecutePreprocessor.timeout=480 --allow-errors check_gds_stack.ipynb --stdout
+     - jupyter nbconvert --to markdown --execute --ExecutePreprocessor.timeout=480 check_gsa_stack.ipynb
+    - conda list --explicit
 
 notifications:
     email:
