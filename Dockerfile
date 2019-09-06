@@ -33,46 +33,58 @@ RUN conda-env create -f /tmp/${base_nm}.yml \
     && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
     && conda list
 
-SHELL ["/bin/bash", "-c"]
-RUN conda init 
-RUN echo "conda activate ${release_nm}" > ~/.bashrc
-SHELL ["/bin/bash", "-c"]
+ENV PATH /opt/conda/envs/${release_nm}/bin:$PATH
+ENV PROJ_LIB /opt/conda/envs/gsa2019/share/proj/
+COPY init.sh /tmp/
+RUN cat /tmp/init.sh > ~/.bashrc 
+RUN echo "export PROJ_LIB=/opt/conda/envs/${release_nm}/share/proj/" >> ~/.bashrc
 
-# Install via pip
-# --no-deps -- after making sure you have the conda libs installed
-#COPY pip_requirements.txt /tmp/
-#RUN pip install --no-cache-dir --no-deps -r /tmp/pip_requirements.txt 
-#COPY . /tmp/
+#SHELL ["/bin/bash", "-c"]
 
 # Enable widgets in Jupyter
 RUN jupyter lab clean \
+# These should work, but can be commented out for speed during dev
     && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
-    && jupyter labextension install --no-build jupyter-leaflet \
     && jupyter labextension install --no-build jupyter-matplotlib \ 
-# Doesn't work currently
-#    && jupyter labextension install --no-build pylantern \ 
-# Doesn't work currently
-#    && jupyter labextension install --no-build @oriolmirosa/jupyterlab_materialdarker \ 
-#    && jupyter labextension install --no-build @jpmorganchase/perspective-jupyterlab \ 
-# These should work, but commented out for speed
+    && jupyter labextension install --no-build jupyter-leaflet \
+    && jupyter labextension install --no-build nbdime-jupyterlab \
     && jupyter labextension install --no-build @jupyterlab/toc \
     && jupyter labextension install --no-build ipysheet \ 
-    && jupyter labextension install --no-build plotlywidget \ 
     && jupyter labextension install --no-build @jupyterlab/mathjax3-extension \ 
+    && jupyter labextension install --no-build plotlywidget \ 
     && jupyter labextension install --no-build @jupyterlab/plotly-extension \ 
     && jupyter labextension install --no-build @jupyterlab/geojson-extension \ 
     && jupyter labextension install --no-build @krassowski/jupyterlab_go_to_definition \
     && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter 
+# Doesn't work currently
+#    && jupyter labextension install --no-build pylantern \ 
+#    && jupyter labextension install --no-build @oriolmirosa/jupyterlab_materialdarker \ 
+#    && jupyter labextension install --no-build @jpmorganchase/perspective-jupyterlab \ 
  
-RUN jupyter lab build  
+RUN jupyter lab build \
+    && jupyter labextension enable jupyterlab-manager \ 
+    && jupyter labextension enable jupyter-matplotlib \
+    && jupyter labextension enable jupyter-leaflet \ 
+    && jupyter labextension enable nbdime-jupyterlab \
+    && jupyter labextension enable toc \ 
+    && jupyter labextension enable ipysheet \ 
+    && jupyter labextension enable mathjax3-extension \ 
+    && jupyter labextension enable plotlywidget \ 
+    && jupyter labextension enable plotly-extension \
+    && jupyter labextension enable geojson-extension \ 
+    && jupyter labextension enable jupyterlab_go_to_definition \
+    && jupyter labextension enable jupyterlab_code_formatter 
 #    && jupyter nbextension enable --py widgetsnbextension \ 
-#    && jupyter labextension enable jupyterlab_code_formatter \ 
-RUN jupyter labextension enable jupyterlab-manager 
-#    && jupyter labextension enable jupyter-leaflet \ 
-#    && jupyter labextension enable jupyter-matplotlib 
+
+
+#--- Jupyter config ---#
+RUN echo "c.NotebookApp.default_url = '/lab'" \
+    >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 
 USER root
-RUN python -m ipykernel install --name ${release_nm} --display-name ${kernel_nm}
+RUN . /opt/conda/etc/profile.d/conda.sh \
+    && conda activate ${release_nm} \
+    && python -m ipykernel install --name ${release_nm} --display-name ${kernel_nm} 
 USER $NB_UID
 
 COPY *.ipynb /home/$NB_USER/
