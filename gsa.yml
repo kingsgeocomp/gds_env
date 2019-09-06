@@ -39,7 +39,7 @@ channels:
 dependencies:
   - python=3.7
   - pip 
-  #- git 
+  - git 
   #- bambi 
   #- black 
   - bokeh 
@@ -84,11 +84,11 @@ dependencies:
   - polyline 
   - pyarrow==0.14.* 
   - pykrige 
-  #- pymc3 # Not well-supported on Windows 
+  - pymc3 # Not well-supported on Windows 
   - pysal=2.0.0
   - pyshp 
   - pystan 
-  #- qgrid 
+  - qgrid 
   - rasterio
   - rasterstats
   - requests 
@@ -106,7 +106,7 @@ dependencies:
   - xlsxwriter 
   - pip:
     - six 
-    #- git+http://github.com/sevamoo/SOMPY#egg=sompy
+    #- git+http://github.com/sevamoo/SOMPY#egg=sompy # Doesn't run in Python3
     - git+http://github.com/kingsgeocomp/SOMPY#egg=sompy
-    - smopy # NOT a typo!
+    - smopy # NOT a typo! Not the same thing as sompy!
     - googlemaps

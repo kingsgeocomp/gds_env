@@ -1,17 +1,16 @@
+
+#--- Build from Jupyter-provided Minimal Install ---#
 # https://github.com/jupyter/docker-stacks/blob/master/docs/using/selecting.md
 # 2 Sept 2019
-#FROM jupyter/minimal-notebook:82d1d0bf0867 as jup
-
-# July'19
-FROM jupyter/minimal-notebook:307ad2bb5fce
+FROM jupyter/minimal-notebook:82d1d0bf0867
 
 LABEL maintainer="jonathan.reades@kcl.ac.uk"
 
 ENV base_nm gsa
-ENV release_nm gsa2019
+ENV release_nm ${base_nm}2019
 ENV kernel_nm 'GSA2019'
 
-RUN echo ${kernel_nm}
+RUN echo "Building ${kernel_nm}"
 
 # https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/Dockerfile
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -24,7 +23,7 @@ RUN conda update -n base conda --yes \
     && conda config --add channels conda-forge \
     && conda config --set channel_priority strict
 
-# Now install the packages -- we 
+# Now install the packages then tidy up 
 COPY ${base_nm}.yml /tmp/
 RUN conda-env create -f /tmp/${base_nm}.yml \ 
     && conda clean --all --yes --force-pkgs-dirs \
@@ -33,13 +32,16 @@ RUN conda-env create -f /tmp/${base_nm}.yml \
     && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
     && conda list
 
+# Set paths for conda and PROJ
 ENV PATH /opt/conda/envs/${release_nm}/bin:$PATH
 ENV PROJ_LIB /opt/conda/envs/gsa2019/share/proj/
+# And configure the bash shell params 
 COPY init.sh /tmp/
 RUN cat /tmp/init.sh > ~/.bashrc 
 RUN echo "export PROJ_LIB=/opt/conda/envs/${release_nm}/share/proj/" >> ~/.bashrc
 
-# Enable widgets in Jupyter
+# Install jupyterlab extensions, but don't build
+# (saves some time over install and building each)
 RUN jupyter lab clean \
 # These should work, but can be commented out for speed during dev
     && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
@@ -53,12 +55,14 @@ RUN jupyter lab clean \
     && jupyter labextension install --no-build @jupyterlab/plotly-extension \ 
     && jupyter labextension install --no-build @jupyterlab/geojson-extension \ 
     && jupyter labextension install --no-build @krassowski/jupyterlab_go_to_definition \
-    && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter 
-# Doesn't work currently
+    && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter \ 
+    && jupyter labextension install --no-build qgrid 
+# Don't work currently
 #    && jupyter labextension install --no-build pylantern \ 
 #    && jupyter labextension install --no-build @oriolmirosa/jupyterlab_materialdarker \ 
 #    && jupyter labextension install --no-build @jpmorganchase/perspective-jupyterlab \ 
- 
+
+# Build the jupyterlab extensions
 RUN jupyter lab build \
     && jupyter labextension enable jupyterlab-manager \ 
     && jupyter labextension enable jupyter-matplotlib \
@@ -71,23 +75,41 @@ RUN jupyter lab build \
     && jupyter labextension enable plotly-extension \
     && jupyter labextension enable geojson-extension \ 
     && jupyter labextension enable jupyterlab_go_to_definition \
-    && jupyter labextension enable jupyterlab_code_formatter 
+    && jupyter labextension enable jupyterlab_code_formatter \
+    && jupyter labextension enable qgrid 
 #    && jupyter nbextension enable --py widgetsnbextension \ 
 
-
-#--- Jupyter config ---#
+#--- JupyterLab config ---#
 RUN echo "c.NotebookApp.default_url = '/lab'" \
     >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 
+# Clean up
+RUN npm cache clean --force \
+    && rm -rf $CONDA_DIR/share/jupyter/lab/staging\
+    && rm -rf /home/$NB_USER/.cache/yarn
+
+#--- Set up Kernelspec so name visible in chooser ---#
 USER root
 SHELL ["/bin/bash", "-c"]
 RUN . /opt/conda/etc/profile.d/conda.sh \
     && conda activate ${release_nm} \
-    && python -m ipykernel install --name ${release_nm} --display-name ${kernel_nm} 
+    && python -m ipykernel install --name ${release_nm} --display-name ${kernel_nm} \
+    && ln -s /opt/conda/bin/jupyter /usr/local/bin
+
+#--- htop ---#
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends software-properties-common htop
+
+#--- Texbuild ---#
+RUN wget https://gist.github.com/darribas/e2a560e562139b139b67b7d1c998257c/raw/b2ec84e8eb671f3ebc2149a4d94d28a460ef9a7e/texBuild.py \
+    && wget https://gist.github.com/darribas/e2a560e562139b139b67b7d1c998257c/raw/92b64d2d95768f1edc34a79dd13f957cc0b87bb3/install_texbuild.py \
+    && cp texBuild.py /bin/texBuild.py \
+    && python install_texbuild.py \
+    && rm install_texbuild.py texBuild* \
+    && fix-permissions $HOME \
+    && fix-permissions $CONDA_DIR
+
+# Switch back to user to avoid accidental container runs as root
 USER $NB_UID
 
-COPY *.ipynb /home/$NB_USER/
-
-# To push
-# docker tag <IMAGE ID> jreades/gsa:1.0
-# docker push jreades/gsa:1.0
+#COPY *.ipynb /home/$NB_USER/
