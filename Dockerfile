@@ -39,8 +39,6 @@ COPY init.sh /tmp/
 RUN cat /tmp/init.sh > ~/.bashrc 
 RUN echo "export PROJ_LIB=/opt/conda/envs/${release_nm}/share/proj/" >> ~/.bashrc
 
-#SHELL ["/bin/bash", "-c"]
-
 # Enable widgets in Jupyter
 RUN jupyter lab clean \
 # These should work, but can be commented out for speed during dev
@@ -82,6 +80,7 @@ RUN echo "c.NotebookApp.default_url = '/lab'" \
     >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 
 USER root
+SHELL ["/bin/bash", "-c"]
 RUN . /opt/conda/etc/profile.d/conda.sh \
     && conda activate ${release_nm} \
     && python -m ipykernel install --name ${release_nm} --display-name ${kernel_nm} 
