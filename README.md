@@ -1,6 +1,6 @@
 # `gsa_env`: Geocomputation & Spatial Analysis Platform
 
-This is a fork from [Dani's work](https://github.com/darribas/gds_env) (please see below for citing) to remove R as we don't need this for teaching but do have a few more Python packages that we _do_ use at King's. We've also added some JupyterLab extensions to make interacting with the Lab server a bit easier.
+This is a fork from [Dani's work](https://github.com/darribas/gds_env) (**please see below for citing**) to remove R as we don't need this for teaching but do have a few more Python packages that we _do_ use at King's. We've also added some JupyterLab extensions to make interacting with the Lab server a bit easier.
 
 This repository contains two approaches to installation:
 
@@ -8,6 +8,8 @@ This repository contains two approaches to installation:
 2. [Anaconda Python](https://www.anaconda.com/distribution/#download-section) and the supporting packages specified in the relevant YAML file ([full](https://github.com/kingsgeocomp/gsa_env/blob/master/gsa.yml) or [simplified](https://github.com/kingsgeocomp/gsa_env/blob/master/gsa_sm.yml)).
 
 We are progressively migrating away from local installation via `conda` and towards the use of Docker for teaching since it ensures that all students have the same packages installed. However, if you simply want to play with the geo-data analysis stack or are on a low-powered machine unable to run Docker in full then direct installation may be appropriate.
+
+A more detailed set of instructions can also be found in [Dani's Repo](https://github.com/darribas/gds19/tree/master/content/infrastructure). **Read this if you have trouble!**
 
 ## Requirements for Installing from Docker
 
