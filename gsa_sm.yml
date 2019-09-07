@@ -11,14 +11,14 @@
 #######################
 # NOTE: in the below, wherever you see '{name}'
 # you should replace that with the name of the 
-# environment you are installing (e.g. `gsa2019`).
+# environment you are installing (e.g. `gsa2019sm`).
 #######################
 #
 # If you've already installed this environment before:
 #   conda remove --name {name} --all
 #
 # To install/reinstall the environment:
-#   conda-env create -f gsa.yml
+#   conda-env create -f gsa_sm.yml
 #
 # To install/update individual libraries you usually want to force the conda-forge channel:
 #   conda install -c conda-forge osmnx
@@ -38,7 +38,7 @@
 #   jupyter lab
 #
 # CONFIGURATION PARAMETERS
-name: gsa2019
+name: gsa2019sm
 channels:
   - conda-forge
   - defaults
@@ -50,12 +50,12 @@ dependencies:
   #- black 
   #- bokeh 
   #- colorama
-  - contextily==1.0rc2
+  #- contextily==1.0rc2
   #- cython
   #- dask 
   #- dask-ml 
-  - datashader 
-  - dill 
+  #- datashader 
+  #- dill 
   #- feather-format 
   - folium 
   - gdal 
@@ -65,7 +65,7 @@ dependencies:
   - georasters 
   #- gitdb2 
   - gitpython 
-  - hdbscan 
+  #- hdbscan 
   - ipyleaflet 
   #- ipyparallel 
   - ipywidgets 
@@ -74,7 +74,7 @@ dependencies:
   #- libgdal
   - libspatialite
   - lxml 
-  - mapclassify 
+  #- mapclassify 
   #- mkl-service 
   - mplleaflet 
   - mysql-connector-python 
