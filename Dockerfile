@@ -124,5 +124,6 @@ RUN wget https://gist.github.com/darribas/e2a560e562139b139b67b7d1c998257c/raw/b
 USER $NB_UID
 
 #COPY *.ipynb /home/$NB_USER/
+ADD validation tests/  # adds to `WORKDIR`/tests/
 
 RUN echo "Build complete."
