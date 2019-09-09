@@ -15,7 +15,9 @@ A more detailed set of instructions can also be found in [Dani's Repo](https://g
 
 You will need [Docker](https://www.docker.com) (Desktop) to be able to install the GSA environment.
 
-#### Installing
+**Please note**: thers is an alternate 'smaller' Docker image that may be appropriate for those wishing to minise resource consumption (hard drive space, memory, etc.) that does _not_ contain the Bayesian elements, TeX (so no exporting to PDF), `htop`, and many fo the JupyterLab extensions. To install the smaller kernel you should simply add `_sm` to all places where `gsa` occurs below (_e.g._ `gsa:1.0` becomes `gsa_sm:1.0`). You do not normally install the `latest` version of any Docker image as it is likely to change without notice.
+
+#### Installing (Best Option)
 
 You can then install this container by opening up a Shell/Terminal and simply running:
 
