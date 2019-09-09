@@ -55,7 +55,7 @@ dependencies:
   #- dask 
   #- dask-ml 
   #- datashader 
-  #- dill 
+  - dill 
   #- feather-format 
   - folium 
   - gdal 

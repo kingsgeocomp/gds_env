@@ -1,14 +1,14 @@
 # How to pull and run this image
-# > docker pull jreades/gsa:1.0sm
-# > docker run --rm -ti -p 8888:8888 -v ${PWD}:/home/jovyan/work jreades/gsa:1.0sm
+# > docker pull jreades/gsa_sm:1.0
+# > docker run --rm -ti -p 8888:8888 -v ${PWD}:/home/jovyan/work jreades/gsa_sm:1.0
 #
 # How to build
-# > docker build -t jreades/gsa:1.0 -f DockerfileSmall --compress .
+# > docker build -t jreades/gsa_sm:1.0 -f DockerfileSmall --compress .
 # How to push an updated image
-# > docker tag jreades/gsa:1.0sm jreades/gsa:2019sm
-# > docker tag jreades/gsa:1.0sm jreades/gsa:latestsm
+# > docker tag jreades/gsa_sm:1.0 jreades/gsa_sm:2019
+# > docker tag jreades/gsa_sm:1.0 jreades/gsa_sm:latest
 # > docker login docker.io
-# > docker push jreades/gsa:1.0sm jreades/gsa:latestsm
+# > docker push jreades/gsa_sm:1.0 jreades/gsa_sm:latest
 #
 #--- Build from Jupyter-provided Minimal Install ---#
 # https://github.com/jupyter/docker-stacks/blob/master/docs/using/selecting.md
