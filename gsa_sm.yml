@@ -25,7 +25,7 @@
 #
 # A nice way to set the display name for the environment after activating the env:
 #   conda activate {name}
-#   python -m ipykernel install --name {name} --display-name "Geocomp 2019"
+#   python -m ipykernel install --name {name} --display-name "GSA2019Small"
 # To tidy up environments: 
 #   jupyter kernelspec list
 #   jupyter kernelspec uninstall unwanted-kernel 
@@ -38,7 +38,7 @@
 #   jupyter lab
 #
 # CONFIGURATION PARAMETERS
-name: gsa2019sm
+name: gsa_sm2019
 channels:
   - conda-forge
   - defaults
@@ -64,7 +64,7 @@ dependencies:
   - geopy 
   - georasters 
   #- gitdb2 
-  - gitpython 
+  #- gitpython 
   #- hdbscan 
   - ipyleaflet 
   #- ipyparallel 
