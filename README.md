@@ -25,7 +25,7 @@ You can then install this container by opening up a Shell/Terminal and simply ru
 
 If, instead, you want to build from source, the Docker image can be built by running:
 
-> `docker build -t jreades/gsa:1.0 .`
+> `docker build --rm -t jreades/gsa:1.0 .`
 
 You can check it has been built correctly by:
 
@@ -51,6 +51,28 @@ A couple of notes on the command above:
   you will have to point your browser to `localhost:8888` and insert the token
   printed on the terminal
 * The command also mounts the current folder (`pwd`) to the container, but you can replace that with the path to any folder on your local machine (in fact, that will only work on host machines with the `pwd` command installed)
+
+#### Deleting
+
+Should you wish to remove the image and container from your system then the following approaches are available:
+
+##### Deleting by Filter
+
+This should be used with some care since it will try to delete all matching images and this may not be what you want:
+
+```bash
+docker ps -aqf "name=gsa" --format="{{.Image}} {{.Names}} {{.ID}}" | grep "1.0" | cut -d' ' -f3 | xargs docker rm -f
+docker images --format="{{.Repository}} {{.Tag}} {{.ID}}" | grep "gsa" | cut -d' ' -f3 | xargs docker rmi
+```
+
+##### Deleting by Image
+
+```bash
+docker ps -aq # Get list of running processes and work out container IDs to remove
+docker rm -f <list of container IDs>
+docker images # Get list of available images and work out image IDs to remove
+docker rmi -f <list of image IDs>
+```
 
 ## Requirements for Direct Installation
 
