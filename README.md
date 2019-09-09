@@ -21,9 +21,9 @@ You can then install this container by opening up a Shell/Terminal and simply ru
 
 > `docker pull jreades/gsa:1.0`
 
-#### Building
+#### Building (Alternative to Installing)
 
-If, instead, you want to build from source, the Docker image can be built by running:
+Docker is designed to make it easy to install the Geocomputation environment in it's entirety using just one command; however, if you want to build from source for some reason then the Docker image can be built by running:
 
 > `docker build --rm -t jreades/gsa:1.0 .`
 
@@ -33,13 +33,11 @@ You can check it has been built correctly by:
 
 And you should see one image with the name `gsa` and tag `1.0` (in this example).
 
-#### Running
+#### Running (Either Way)
 
 The container can be run in the Shell or Terminal as:
 
-```bash
-> docker run --rm -ti -p 8888:8888 -v ${pwd}:/home/jovyan/host jreades/gsa:1.0
-```
+> `docker run --rm -ti -p 8888:8888 -v ${pwd}:/home/jovyan/host jreades/gsa:1.0`
 
 The first time you run this command and attempt to log in by pointing your browser to [localhost:8888](http://127.0.0.1:8888/lab?) you are likely to be prompted to enter a **Token**. The token will have been shown in the Shell/Terminal output shortly after you ran the above command: you can copy+paste this into the web page and should then see something like the below in your browser window:
 
