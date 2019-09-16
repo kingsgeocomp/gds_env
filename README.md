@@ -39,9 +39,9 @@ And you should see one image with the name `gsa` and tag `2019` (in this example
 
 The container can be run in the Shell or Terminal as:
 
-> `docker run --rm -ti -p 8888:8888 --mount type=bind,source="$(pwd)",target=/home/jovyan/ jreades/gsa:2019`
+> `docker run --name gsa --rm -ti -p 8888:8888 --mount type=bind,source="$(pwd)",target=/home/jovyan/ jreades/gsa:2019`
 
-The first time you run this command and attempt to log in by pointing your browser to [localhost:8888](http://127.0.0.1:8888/lab?) you are likely to be prompted to enter a **Token**. The token will have been shown in the Shell/Terminal output shortly after you ran the above command: you can copy+paste this into the web page and should then see something like the below in your browser window:
+When you run this command you will then be able to point your browser to [localhost:8888](http://127.0.0.1:8888/lab?). You are likely to be prompted to enter a **Token**. The token should have been shown in the Shell/Terminal output shortly after you ran the above command: you can copy+paste this into the web page and should then see something like the below in your browser window:
 
 <img src="JupyterLab.png" width="500">
 
@@ -51,6 +51,8 @@ A couple of notes on the command above:
   you will have to point your browser to `localhost:8888` and insert the token
   printed on the terminal
 * The command also mounts the current folder (`pwd`) to the container, but you can replace that with the path to any folder on your local machine (in fact, that will only work on host machines with the `pwd` command installed)
+* The `name` ensures that you don't accidentally run three versions of the same Docker image!
+* You can add `-d` after `-ti` to run the command in the background so it doesn't take over your Terminal (though that can make it hard to find the Token!).
 
 #### Deleting
 
