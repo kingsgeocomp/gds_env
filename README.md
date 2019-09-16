@@ -15,7 +15,7 @@ A more detailed set of instructions can also be found in [Dani's Repo](https://g
 
 You will need [Docker](https://www.docker.com) (Desktop) to be able to install the GSA environment.
 
-**Please note**: thers is an alternate 'smaller' Docker image that may be appropriate for those wishing to minise resource consumption (hard drive space, memory, etc.) that does _not_ contain the Bayesian elements, TeX (so no exporting to PDF), `htop`, and many fo the JupyterLab extensions. To install the smaller kernel you should simply add `_sm` to all places where `gsa` occurs below (_e.g._ `gsa:1.0` becomes `gsa_sm:1.0`). You do not normally install the `latest` version of any Docker image as it is likely to change without notice.
+**Please note**: thers is an alternate 'smaller' Docker image that may be appropriate for those wishing to minise resource consumption (hard drive space, memory, etc.) that does _not_ contain the Bayesian elements, TeX (so no exporting to PDF), `htop`, and many fo the JupyterLab extensions. To install the smaller kernel you should simply add `_sm` to all places where `gsa` occurs below (_e.g._ `gsa:2019` becomes `gsa_sm:2019`). You do not normally install the `latest` version of any Docker image as it is likely to change without notice.
 
 #### Installing (Best Option)
 
@@ -27,13 +27,13 @@ You can then install this container by opening up a Shell/Terminal and simply ru
 
 Docker is designed to make it easy to install the Geocomputation environment in it's entirety using just one command; however, if you want to build from source for some reason then the Docker image can be built by running:
 
-> `docker build --rm -t jreades/gsa:1.0 .`
+> `docker build --rm -t jreades/gsa:2019 .`
 
 You can check it has been built correctly by:
 
 > `docker image ls`
 
-And you should see one image with the name `gsa` and tag `1.0` (in this example).
+And you should see one image with the name `gsa` and tag `2019` (in this example).
 
 #### Running (Either Way)
 
@@ -61,7 +61,7 @@ Should you wish to remove the image and container from your system then the foll
 This should be used with some care since it will try to delete all matching images and this may not be what you want:
 
 ```bash
-docker ps -aqf "name=gsa" --format="{{.Image}} {{.Names}} {{.ID}}" | grep "1.0" | cut -d' ' -f3 | xargs docker rm -f
+docker ps -aqf "name=gsa" --format="{{.Image}} {{.Names}} {{.ID}}" | grep "2019" | cut -d' ' -f3 | xargs docker rm -f
 docker images --format="{{.Repository}} {{.Tag}} {{.ID}}" | grep "gsa" | cut -d' ' -f3 | xargs docker rmi
 ```
 
