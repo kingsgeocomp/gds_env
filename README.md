@@ -54,6 +54,10 @@ A couple of notes on the command above:
 * The `name` ensures that you don't accidentally run three versions of the same Docker image!
 * You can add `-d` after `-ti` to run the command in the background so it doesn't take over your Terminal (though that can make it hard to find the Token!).
 
+We've put together a video (without audio!) of how to do this on a Mac and the process should be similar on a Windows machine:
+
+[![You Tube Video](http://img.youtube.com/vi/5rh_bwxzjNs/0.jpg)](https://www.youtube.com/watch?v=5rh_bwxzjNs)
+
 #### Deleting
 
 Should you wish to remove the image and container from your system then the following approaches are available:
