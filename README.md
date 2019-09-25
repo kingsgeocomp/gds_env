@@ -5,7 +5,7 @@ This is a fork from [Dani's work](https://github.com/darribas/gds_env) (**please
 This repository contains two approaches to installation:
 
 1. [Docker Desktop](https://www.docker.com/products/docker-desktop) and the [GSA Docker](https://cloud.docker.com/u/jreades/repository/docker/jreades/gsa) container
-2. [Anaconda Python](https://www.anaconda.com/distribution/#download-section) and the supporting packages specified in the relevant YAML file ([full](https://github.com/kingsgeocomp/gsa_env/blob/master/gsa.yml) or [simplified](https://github.com/kingsgeocomp/gsa_env/blob/master/gsa_sm.yml)).
+2. [Anaconda Python](https://www.anaconda.com/distribution/#download-section) and the supporting packages specified in the relevant YAML file ([full gsa.yml](https://raw.githubusercontent.com/kingsgeocomp/gsa_env/master/gsa.yml) or [simplified gsa_sm.yml](https://raw.githubusercontent.com/kingsgeocomp/gsa_env/master/gsa_sm.yml)).
 
 We are progressively migrating away from local installation via `conda` and towards the use of Docker for teaching since it ensures that all students have the same packages installed. However, if you simply want to play with the geo-data analysis stack or are on a low-powered machine unable to run Docker in full then direct installation may be appropriate.
 
@@ -86,17 +86,24 @@ You will need [Anaconda Python](https://www.anaconda.com/distribution/#download-
 
 #### Installing
 
-After downloading and installing Anaconda Python you will need to work out how to use the AnacondaPrompt (Windows) or Terminal (Mac) in order to navigate to the folder holding the YAML file ([full](https://github.com/kingsgeocomp/gsa_env/blob/master/gsa.yml) or [small](https://github.com/kingsgeocomp/gsa_env/blob/master/gsa_sm.yml))
+After downloading and installing Anaconda Python you will need to work out how to use the AnacondaPrompt (Windows) or Terminal (Mac) in order to navigate to the folder holding the YAML file ([full](https://raw.githubusercontent.com/kingsgeocomp/gsa_env/master/gsa.yml) or [small](https://raw.githubusercontent.com/kingsgeocomp/gsa_env/master/gsa_sm.yml))
 
 > `conda-env create -f gsa.yml` (for the full version, change `gsa` to `gsa_sm` for smaller kernel)
 
 #### Configuring
 
-To make this new 'kernel' available in JupyterLab you then need to install a `kernelspec` as follows:
+To make this new 'kernel' available in JupyterLab you then need to run the following two commands...
 
+If you installed `gsa.yml` then it's:
 ```bash
-conda activate gsa2019 # this should match the line beginning `name: ...` in the YAML file
-python -m ipykernel install --name gsa2019 --display-name "Geocomp 2019" # Note match of 'names', display name can be anything
+conda activate gsa2019
+python -m ipykernel install --name gsa2019 --display-name "GSA2019" 
+```
+
+If you installed `gsa_sm.yml` then it's:
+```bash
+conda activate gsa_sm2019
+python -m ipykernel install --name gsa2019 --display-name "GSA2019" 
 ```
 
 #### Running
