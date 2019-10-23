@@ -110,6 +110,8 @@ dependencies:
   - urbanaccess 
   - xlrd 
   - xlsxwriter 
+  - basemap 
+  - hdbscan
   - pip:
     - six 
     #- git+http://github.com/sevamoo/SOMPY#egg=sompy # Doesn't run in Python3
