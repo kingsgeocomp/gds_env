@@ -65,7 +65,6 @@ dependencies:
   - georasters 
   #- gitdb2 
   #- gitpython 
-  #- hdbscan 
   - ipyleaflet 
   #- ipyparallel 
   - ipywidgets 
@@ -118,3 +117,4 @@ dependencies:
     - git+http://github.com/kingsgeocomp/SOMPY#egg=sompy
     - smopy # NOT a typo!
     - googlemaps
+    - MulticoreTSNE

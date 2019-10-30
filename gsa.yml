@@ -118,3 +118,4 @@ dependencies:
     - git+http://github.com/kingsgeocomp/SOMPY#egg=sompy
     - smopy # NOT a typo! Not the same thing as sompy!
     - googlemaps
+    - MulticoreTSNE
