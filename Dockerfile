@@ -74,8 +74,10 @@ RUN jupyter lab clean \
     && jupyter labextension install --no-build @jupyterlab/geojson-extension \ 
     && jupyter labextension install --no-build @krassowski/jupyterlab_go_to_definition \
     && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter \ 
-    && jupyter labextension install --no-build qgrid 
+    && jupyter labextension install --no-build qgrid  \ 
+    && jupyter labextension install --no-build @bokeh/jupyter_bokeh \
 # Don't work currently
+#    && jupyter labextension install --no-build @krassowski/jupyterlab-lsp
 #    && jupyter labextension install --no-build pylantern \ 
 #    && jupyter labextension install --no-build @oriolmirosa/jupyterlab_materialdarker \ 
 #    && jupyter labextension install --no-build @jpmorganchase/perspective-jupyterlab \ 
@@ -94,8 +96,8 @@ RUN jupyter lab build \
     && jupyter labextension enable geojson-extension \ 
     && jupyter labextension enable jupyterlab_go_to_definition \
     && jupyter labextension enable jupyterlab_code_formatter \
-    && jupyter labextension enable qgrid 
-#    && jupyter nbextension enable --py widgetsnbextension \ 
+    && jupyter labextension enable qgrid \
+    && jupyter labextension enable jupyter_bokeh
 
 #--- JupyterLab config ---#
 RUN echo "c.NotebookApp.default_url = '/lab'" \
