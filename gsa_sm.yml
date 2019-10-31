@@ -90,7 +90,7 @@ dependencies:
   #- pyarrow==0.14.* 
   - pykrige 
   #- pymc3 # Not well-supported on Windows 
-  - pysal=2.0.0
+  - pysal
   - pyshp 
   #- pystan 
   #- qgrid 
@@ -117,4 +117,4 @@ dependencies:
     - git+http://github.com/kingsgeocomp/SOMPY#egg=sompy
     - smopy # NOT a typo!
     - googlemaps
-    - MulticoreTSNE
+    #- MulticoreTSNE

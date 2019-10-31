@@ -13,7 +13,7 @@
 #--- Build from Jupyter-provided Minimal Install ---#
 # https://github.com/jupyter/docker-stacks/blob/master/docs/using/selecting.md
 # 2 Sept 2019
-FROM jupyter/minimal-notebook:82d1d0bf0867
+FROM jupyter/minimal-notebook:1386e2046833
 
 LABEL maintainer="jonathan.reades@kcl.ac.uk"
 
@@ -21,7 +21,14 @@ ENV base_nm gsa
 ENV release_nm ${base_nm}2019
 ENV kernel_nm 'GSA2019'
 
-RUN echo "Building ${kernel_nm}"
+RUN echo "Building $kernel_nm"
+
+#--- cmake ---#
+#RUN wget -qO- "https://cmake.org/files/v3.15/cmake-3.15.4-Linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C . 
+#RUN curl "https://cmake.org/files/v3.15/cmake-3.15.4-Linux-x86_64.tar.gz" \
+#    && tar -xz cmake-3.15.4-Linux-x86_64.tar.gz \ 
+#    && mv cmake-* /bin/ \
+#    && rm cmake*.tar.gz
 
 # https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/Dockerfile
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8

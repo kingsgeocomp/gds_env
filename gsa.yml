@@ -46,6 +46,7 @@ dependencies:
   - python=3.7
   - pip 
   - git 
+  - cmake
   #- bambi 
   #- black 
   - bokeh 
@@ -91,7 +92,7 @@ dependencies:
   - pyarrow==0.14.* 
   - pykrige 
   - pymc3 # Not well-supported on Windows 
-  - pysal=2.0.0
+  - pysal
   - pyshp 
   - pystan 
   - qgrid 
