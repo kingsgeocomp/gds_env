@@ -13,7 +13,7 @@
 #--- Build from Jupyter-provided Minimal Install ---#
 # https://github.com/jupyter/docker-stacks/blob/master/docs/using/selecting.md
 # 2 Sept 2019
-FROM jupyter/minimal-notebook:82d1d0bf0867
+FROM jupyter/minimal-notebook:1386e2046833
 
 LABEL maintainer="jonathan.reades@kcl.ac.uk"
 
@@ -21,7 +21,7 @@ ENV base_nm gsa_sm
 ENV release_nm ${base_nm}2019
 ENV kernel_nm 'GSA2019Small'
 
-RUN echo "Building ${kernel_nm}"
+RUN echo "Building $kernel_nm"
 
 # https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/Dockerfile
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -62,7 +62,9 @@ RUN jupyter lab clean \
     && jupyter labextension install --no-build @jupyterlab/plotly-extension \ 
     && jupyter labextension install --no-build @jupyterlab/geojson-extension \ 
     && jupyter labextension install --no-build @krassowski/jupyterlab_go_to_definition \
-    && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter 
+    && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter \
+    && jupyter labextension install --no-build @bokeh/jupyter_bokeh \
+    && jupyter labextension install --no-build @pyviz/jupyterlab_pyviz
 
 # Build the jupyterlab extensions
 RUN jupyter lab build \
@@ -73,7 +75,9 @@ RUN jupyter lab build \
     && jupyter labextension enable plotly-extension \
     && jupyter labextension enable geojson-extension \ 
     && jupyter labextension enable jupyterlab_go_to_definition \
-    && jupyter labextension enable jupyterlab_code_formatter 
+    && jupyter labextension enable jupyterlab_code_formatter \ 
+    && jupyter labextension enable jupyter_bokeh \
+    && jupyter labextension enable jupyterlab_pyviz
 
 #--- JupyterLab config ---#
 RUN echo "c.NotebookApp.default_url = '/lab'" \

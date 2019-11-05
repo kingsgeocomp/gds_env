@@ -23,13 +23,6 @@ ENV kernel_nm 'GSA2019'
 
 RUN echo "Building $kernel_nm"
 
-#--- cmake ---#
-#RUN wget -qO- "https://cmake.org/files/v3.15/cmake-3.15.4-Linux-x86_64.tar.gz" | tar --strip-components=1 -xz -C . 
-#RUN curl "https://cmake.org/files/v3.15/cmake-3.15.4-Linux-x86_64.tar.gz" \
-#    && tar -xz cmake-3.15.4-Linux-x86_64.tar.gz \ 
-#    && mv cmake-* /bin/ \
-#    && rm cmake*.tar.gz
-
 # https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/Dockerfile
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
@@ -64,18 +57,19 @@ RUN jupyter lab clean \
 # These should work, but can be commented out for speed during dev
     && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
     && jupyter labextension install --no-build jupyter-matplotlib \ 
-    && jupyter labextension install --no-build jupyter-leaflet \
-    && jupyter labextension install --no-build nbdime-jupyterlab \
-    && jupyter labextension install --no-build @jupyterlab/toc \
-    && jupyter labextension install --no-build ipysheet \ 
     && jupyter labextension install --no-build @jupyterlab/mathjax3-extension \ 
     && jupyter labextension install --no-build plotlywidget \ 
     && jupyter labextension install --no-build @jupyterlab/plotly-extension \ 
     && jupyter labextension install --no-build @jupyterlab/geojson-extension \ 
     && jupyter labextension install --no-build @krassowski/jupyterlab_go_to_definition \
     && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter \ 
-    && jupyter labextension install --no-build qgrid  \ 
-    && jupyter labextension install --no-build @bokeh/jupyter_bokeh \
+    && jupyter labextension install --no-build @bokeh/jupyter_bokeh \ 
+    && jupyter labextension install --no-build @pyviz/jupyterlab_pyviz \ 
+    && jupyter labextension install --no-build jupyter-leaflet \
+    && jupyter labextension install --no-build nbdime-jupyterlab \
+    && jupyter labextension install --no-build @jupyterlab/toc \
+    && jupyter labextension install --no-build ipysheet \ 
+    && jupyter labextension install --no-build qgrid  
 # Don't work currently
 #    && jupyter labextension install --no-build @krassowski/jupyterlab-lsp
 #    && jupyter labextension install --no-build pylantern \ 
@@ -86,18 +80,19 @@ RUN jupyter lab clean \
 RUN jupyter lab build \
     && jupyter labextension enable jupyterlab-manager \ 
     && jupyter labextension enable jupyter-matplotlib \
-    && jupyter labextension enable jupyter-leaflet \ 
-    && jupyter labextension enable nbdime-jupyterlab \
-    && jupyter labextension enable toc \ 
-    && jupyter labextension enable ipysheet \ 
     && jupyter labextension enable mathjax3-extension \ 
     && jupyter labextension enable plotlywidget \ 
     && jupyter labextension enable plotly-extension \
     && jupyter labextension enable geojson-extension \ 
     && jupyter labextension enable jupyterlab_go_to_definition \
     && jupyter labextension enable jupyterlab_code_formatter \
-    && jupyter labextension enable qgrid \
-    && jupyter labextension enable jupyter_bokeh
+    && jupyter labextension enable jupyter_bokeh \
+    && jupyter labextension enable jupyterlab_pyviz \
+    && jupyter labextension enable jupyter-leaflet \ 
+    && jupyter labextension enable nbdime-jupyterlab \
+    && jupyter labextension enable toc \ 
+    && jupyter labextension enable ipysheet \ 
+    && jupyter labextension enable qgrid 
 
 #--- JupyterLab config ---#
 RUN echo "c.NotebookApp.default_url = '/lab'" \

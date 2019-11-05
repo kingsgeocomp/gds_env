@@ -111,6 +111,7 @@ dependencies:
   - xlsxwriter 
   - basemap 
   - hdbscan
+  - hvplot
   - pip:
     - six 
     #- git+http://github.com/sevamoo/SOMPY#egg=sompy
