@@ -47,6 +47,7 @@ dependencies:
   - pip 
   - git 
   #- bambi 
+  - basemap 
   #- black 
   #- bokeh 
   #- colorama
@@ -65,6 +66,8 @@ dependencies:
   - georasters 
   #- gitdb2 
   #- gitpython 
+  - hdbscan
+  - hvplot
   - ipyleaflet 
   #- ipyparallel 
   - ipywidgets 
@@ -79,6 +82,7 @@ dependencies:
   - mysql-connector-python 
   #- nb_conda
   - nbdime 
+  - nbgrader 
   - networkx
   - nodejs 
   - osmnx
@@ -98,7 +102,8 @@ dependencies:
   - rasterstats
   - requests 
   - scikit-learn
-  - scikit-image
+  #- scikit-image
+  - scikit-posthocs
   - seaborn 
   - simplejson 
   - smmap2 
@@ -109,9 +114,6 @@ dependencies:
   #- urbanaccess 
   - xlrd 
   - xlsxwriter 
-  - basemap 
-  - hdbscan
-  - hvplot
   - pip:
     - six 
     #- git+http://github.com/sevamoo/SOMPY#egg=sompy
