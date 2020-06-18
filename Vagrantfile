@@ -1,16 +1,3 @@
-$startup = <<-SCRIPT
-printf "Running docker start-up script...\n"
-
-docker run -d --name jupyter \
-        -v '/home/vagrant/notebooks:/home/jovyan/' \
-        -p 8888:8888 \
-        -p 8787:8787 \
-        -p 4000:4000 \
-        jreades/gsa:2019c
-
-printf "Done.\n"
-SCRIPT
-
 Vagrant.configure("2") do |config|
   config.vm.box = "ailispaw/barge"
   # May want to add `, host_ip: "127.0.0.1"` to below lines for security
