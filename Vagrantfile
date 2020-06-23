@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |vb|
     # Set name
-    vb.name = "BargeTest"
+    vb.name = "gsa2019c"
 
     # Display the VirtualBox GUI when booting the machine
     vb.gui = false
