@@ -45,7 +45,7 @@ RUN conda-env create -f /tmp/${base_nm}.yml \
 
 # Set paths for conda and PROJ
 ENV PATH /opt/conda/envs/${release_nm}/bin:$PATH
-ENV PROJ_LIB /opt/conda/envs/gsa2019/share/proj/
+ENV PROJ_LIB /opt/conda/envs/${release_nm}/share/proj/
 # And configure the bash shell params 
 COPY init.sh /tmp/
 RUN cat /tmp/init.sh > ~/.bashrc 
@@ -69,6 +69,7 @@ RUN jupyter lab clean \
     && jupyter labextension install --no-build nbdime-jupyterlab \
     && jupyter labextension install --no-build @jupyterlab/toc \
     && jupyter labextension install --no-build ipysheet \ 
+    && jupyter labextension install --no-build @rmotr/jupyterlab-solutions \
     && jupyter labextension install --no-build qgrid  
 # Don't work currently
 #    && jupyter labextension install --no-build @krassowski/jupyterlab-lsp
@@ -92,10 +93,18 @@ RUN jupyter lab build \
     && jupyter labextension enable nbdime-jupyterlab \
     && jupyter labextension enable toc \ 
     && jupyter labextension enable ipysheet \ 
+    && jupyter labextension enable jupyterlab_rmotr_solutions \
     && jupyter labextension enable qgrid 
 
 #--- JupyterLab config ---#
-RUN echo "c.NotebookApp.default_url = '/lab'" \
+# Need to add these:
+# c.JupyterLabRmotrSolutions.is_enabled = True # True, False
+# c.JupyterLabRmotrSolutions.role = 'teacher' # 'teacher', 'student'
+RUN echo "
+    c.NotebookApp.default_url = '/lab'
+    c.JupyterLabRmotrSolutions.is_enabled = True
+    c.JupyterLabRmotrSolutions.role = 'student'
+" \
     >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 
 # Clean up

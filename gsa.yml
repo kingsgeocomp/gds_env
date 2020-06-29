@@ -122,3 +122,4 @@ dependencies:
     - smopy # NOT a typo! Not the same thing as sompy!
     - googlemaps
     - MulticoreTSNE
+    - jupyterlab-solutions 
