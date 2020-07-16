@@ -109,7 +109,7 @@ RUN npm cache clean --force \
     && rm -rf /home/$NB_USER/.cache/yarn
 
 #--- Preload the NLTK/Spacy libs ---#
-RUN python c "import nltk; nltk.download('wordnet'); nltk.download('stopwords'); nltk.download('punkt'); nltk.download('city_database')"
+RUN python -c "import nltk; nltk.download('wordnet'); nltk.download('stopwords'); nltk.download('punkt'); nltk.download('city_database')"
 # This may bloat the Docker image massively
 #RUN python -m spacy download en \ 
 #    && python -m spacy download en_core_web_sm 
