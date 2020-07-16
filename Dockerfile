@@ -19,12 +19,11 @@ ENV base_nm gsa
 ENV release_nm ${base_nm}2020
 ENV kernel_nm 'GSA2020'
 
-RUN echo "Building $kernel_nm"
-
 # https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/Dockerfile
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 #--- Python ---#
+RUN echo "Building $kernel_nm"
 
 # Get conda updated and set up before installing
 # any packages
@@ -56,8 +55,7 @@ RUN jupyter lab clean \
     && jupyter labextension install --no-build @jupyter-widgets/jupyterlab-manager \
     && jupyter labextension install --no-build jupyter-matplotlib \ 
     && jupyter labextension install --no-build @jupyterlab/mathjax3-extension \ 
-    && jupyter labextension install --no-build plotlywidget \ 
-    && jupyter labextension install --no-build @jupyterlab/plotly-extension \ 
+    && jupyter labextension install --no-build jupyterlab-plotly \ 
     && jupyter labextension install --no-build @jupyterlab/geojson-extension \ 
     && jupyter labextension install --no-build @krassowski/jupyterlab_go_to_definition \
     && jupyter labextension install --no-build @ryantam626/jupyterlab_code_formatter \ 
@@ -81,8 +79,7 @@ RUN jupyter lab build \
     && jupyter labextension enable jupyterlab-manager \ 
     && jupyter labextension enable jupyter-matplotlib \
     && jupyter labextension enable mathjax3-extension \ 
-    && jupyter labextension enable plotlywidget \ 
-    && jupyter labextension enable plotly-extension \
+    && jupyter labextension enable jupyterlab-plotly \ 
     && jupyter labextension enable geojson-extension \ 
     && jupyter labextension enable jupyterlab_go_to_definition \
     && jupyter labextension enable jupyterlab_code_formatter \
@@ -100,17 +97,22 @@ RUN jupyter lab build \
 # Need to add these if rmotr/solutions ever works:
 # c.JupyterLabRmotrSolutions.is_enabled = True # True, False
 # c.JupyterLabRmotrSolutions.role = 'teacher' # 'teacher', 'student'
-RUN echo "
-    c.NotebookApp.default_url = '/lab'
-    c.JupyterLabRmotrSolutions.is_enabled = True
-    c.JupyterLabRmotrSolutions.role = 'student'
-" \
-    >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
+SHELL ["/bin/bash", "-c"]
+RUN echo $'\n\
+    c.NotebookApp.default_url = \'/lab\' \n\
+    c.JupyterLabRmotrSolutions.is_enabled = True \n\
+    c.JupyterLabRmotrSolutions.role = \'student\'\n' >> /home/$NB_USER/.jupyter/jupyter_notebook_config.py
 
 # Clean up
 RUN npm cache clean --force \
     && rm -rf $CONDA_DIR/share/jupyter/lab/staging\
     && rm -rf /home/$NB_USER/.cache/yarn
+
+#--- Preload the NLTK/Spacy libs ---#
+RUN python c "import nltk; nltk.download('wordnet'); nltk.download('stopwords'); nltk.download('punkt'); nltk.download('city_database')"
+# This may bloat the Docker image massively
+#RUN python -m spacy download en \ 
+#    && python -m spacy download en_core_web_sm 
 
 #--- Set up Kernelspec so name visible in chooser ---#
 USER root
