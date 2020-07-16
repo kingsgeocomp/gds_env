@@ -3,23 +3,21 @@
 # > docker run --rm -ti -p 8888:8888 -v ${PWD}:/home/jovyan/work jreades/gsa:1.0
 #
 # How to build
-# > docker build -t jreades/gsa:1.0 --compress .
+# > docker build -t jreades/gsa:2020 --compress .
 # How to push an updated image
-# > docker tag jreades/gsa:1.0 jreades/gsa:2019
-# > docker tag jreades/gsa:1.0 jreades/gsa:latest
+# > docker tag jreades/gsa:2020 jreades/gsa:latest
 # > docker login docker.io
-# > docker push jreades/gsa:1.0 jreades/gsa:latest
+# > docker push jreades/gsa:2020 jreades/gsa:latest
 #
 #--- Build from Jupyter-provided Minimal Install ---#
 # https://github.com/jupyter/docker-stacks/blob/master/docs/using/selecting.md
-# 2 Sept 2019
-FROM jupyter/minimal-notebook:1386e2046833
+FROM jupyter/minimal-notebook:ea01ec4d9f57
 
 LABEL maintainer="jonathan.reades@kcl.ac.uk"
 
 ENV base_nm gsa
-ENV release_nm ${base_nm}2019
-ENV kernel_nm 'GSA2019'
+ENV release_nm ${base_nm}2020
+ENV kernel_nm 'GSA2020'
 
 RUN echo "Building $kernel_nm"
 
@@ -69,7 +67,8 @@ RUN jupyter lab clean \
     && jupyter labextension install --no-build nbdime-jupyterlab \
     && jupyter labextension install --no-build @jupyterlab/toc \
     && jupyter labextension install --no-build ipysheet \ 
-    && jupyter labextension install --no-build @rmotr/jupyterlab-solutions \
+    && jupyter labextension install --no-build @lckr/jupyterlab_variableinspector \ 
+    #&& jupyter labextension install --no-build @rmotr/jupyterlab-solutions \
     && jupyter labextension install --no-build qgrid  
 # Don't work currently
 #    && jupyter labextension install --no-build @krassowski/jupyterlab-lsp
@@ -93,7 +92,8 @@ RUN jupyter lab build \
     && jupyter labextension enable nbdime-jupyterlab \
     && jupyter labextension enable toc \ 
     && jupyter labextension enable ipysheet \ 
-    && jupyter labextension enable jupyterlab_rmotr_solutions \
+    && jupyter labextension enable jupyterlab_variableinspector \ 
+    #&& jupyter labextension enable jupyterlab_rmotr_solutions \
     && jupyter labextension enable qgrid 
 
 #--- JupyterLab config ---#
