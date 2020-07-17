@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |vb|
     # Set name
-    vb.name = "gsa2019c"
+    vb.name = "gsa2020"
 
     # Display the VirtualBox GUI when booting the machine
     vb.gui = false
@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
   # Docker pull image (only run once or 
   # on reprovisioning)
   config.vm.provision "docker" do |d|
-    d.pull_images "jreades/gsa:2019c"
+    d.pull_images "jreades/gsa:2020"
   end
 
   # RESTARTING DOCKER
@@ -34,9 +34,9 @@ Vagrant.configure("2") do |config|
   # and easier on reboot. 
   #
   #config.vm.provision "docker" do |d|
-  #  d.pull_images "jreades/gsa:2019c"
+  #  d.pull_images "jreades/gsa:2020"
   #  d.run "jupyter",
-  #   image: "jreades/gsa:2019c",
+  #   image: "jreades/gsa:2020",
   #   args: "-v '/home/vagrant/notebooks:/home/jovyan/' \
   #          -p 8888:8888 \
   #          -p 8787:8787 \
@@ -109,7 +109,7 @@ SCRIPT
           -p 8888:8888 \
           -p 8787:8787 \
           -p 4000:4000 \
-          jreades/gsa:2019c \
+          jreades/gsa:2020 \
 	  start.sh jupyter lab \
 	  --LabApp.password='sha1:3b9653503d8e:552e78e8443a239b355c0f121ab905517f8492fe'
 	printf "Done.\n"
