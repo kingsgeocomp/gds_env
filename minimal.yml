@@ -38,12 +38,12 @@
 #   jupyter lab
 #
 # CONFIGURATION PARAMETERS
-name: gsa_sm2020
+#name: gsa_sm2020
 channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.7
+#  - python=3.7
   - pip 
   - git 
   - basemap 
@@ -62,17 +62,17 @@ dependencies:
   - libspatialite
   - lxml 
   - mplleaflet 
+  - ipympl 
   - mysql-connector-python 
   - nbdime 
-  - nbgrader 
-  - networkx
   - nodejs 
-  - osmnx
   - palettable 
   - pointpats 
   - polyline 
   - pykrige 
-  - pysal
+  - pysal>=2.2.0
+  - pandana # For segregation module
+  - urbanaccess # For segregation module 
   - pyshp 
   - rasterio
   - rasterstats
@@ -87,6 +87,9 @@ dependencies:
   - tzlocal 
   - xlrd 
   - xlsxwriter 
+  - nltk 
   - pip:
     - git+http://github.com/kingsgeocomp/SOMPY#egg=sompy
     - smopy # NOT a typo!
+    - wordcloud 
+    - scikit-posthocs 

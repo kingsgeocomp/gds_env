@@ -16,7 +16,7 @@ FROM jupyter/minimal-notebook:ea01ec4d9f57
 LABEL maintainer="jonathan.reades@kcl.ac.uk"
 
 ENV yaml_nm environment
-ENV env_nm notebooks
+ENV env_nm base
 ENV kernel_nm GSA2020
 
 # https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/Dockerfile
@@ -42,12 +42,18 @@ RUN conda env update -n ${env_nm} -f /tmp/${yaml_nm}.yml \
     && conda list
 
 # Set paths for conda and PROJ
-ENV PATH /opt/conda/envs/${env_nm}/bin:$PATH
-ENV PROJ_LIB /opt/conda/envs/${env_nm}/share/proj/
+# Change depending on whether using base environment
+ENV PATH /opt/conda/bin:$PATH
+ENV PROJ_LIB /opt/conda/share/proj/
+#ENV PATH /opt/conda/envs/${env_nm}/bin:$PATH
+#ENV PROJ_LIB /opt/conda/envs/${env_nm}/share/proj/
+
 # And configure the bash shell params 
 COPY init.sh /tmp/
 RUN cat /tmp/init.sh > ~/.bashrc 
-RUN echo "export PROJ_LIB=/opt/conda/envs/${env_nm}/share/proj/" >> ~/.bashrc
+# Change depending on whether using base environment
+RUN echo "export PROJ_LIB=/opt/conda/share/proj/" >> ~/.bashrc
+#RUN echo "export PROJ_LIB=/opt/conda/envs/${env_nm}/share/proj/" >> ~/.bashrc
 
 # Install jupyterlab extensions, but don't build
 # (saves some time over install and building each)

@@ -1,7 +1,7 @@
 #!/bin/bash
 # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 # Specify the image that we want to install
-TARGET="jreades/gsa:2019c"
+TARGET="jreades/gsa:2020"
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 wait-for-docker
 echo -e "\n ******* \n\n Removing existing containers...\n"
