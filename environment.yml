@@ -38,12 +38,12 @@
 #   jupyter lab
 #
 # CONFIGURATION PARAMETERS
-name: gsa2020
+#name: gsa2020
 channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.7
+#  - python>=3.7
   - pip 
   - git 
   - cmake
@@ -73,6 +73,7 @@ dependencies:
   - mapclassify 
   - mkl-service 
   - mplleaflet 
+  - ipympl 
   - mysql-connector-python 
   - nbdime 
   - networkx
@@ -84,7 +85,9 @@ dependencies:
   - polyline 
   - pykrige 
   - pymc3 # Not well-supported on Windows 
-  - pysal
+  - pysal>=2.2.0
+  - pandana # For pysal segregation module
+  - urbanaccess  # For pysal segregation module
   - pyshp 
   - qgrid 
   - rasterio
@@ -99,12 +102,19 @@ dependencies:
   - sqlalchemy 
   - statsmodels 
   - tzlocal 
-  - urbanaccess 
   - xlrd 
   - xlsxwriter 
+  - pypdf2 
+  - spacy  
+  - nltk 
   - pip:
     #- git+http://github.com/sevamoo/SOMPY#egg=sompy # Doesn't run in Python3
     - git+http://github.com/kingsgeocomp/SOMPY#egg=sompy
     - smopy # NOT a typo! Not the same thing as sompy!
     - MulticoreTSNE
     - scikit-posthocs
+    - wordcloud
+    - pdfkit
+    - pypdf2 
+    - pyocr
+    - wand 

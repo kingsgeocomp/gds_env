@@ -15,9 +15,9 @@ FROM jupyter/minimal-notebook:ea01ec4d9f57
 
 LABEL maintainer="jonathan.reades@kcl.ac.uk"
 
-ENV base_nm gsa
-ENV release_nm ${base_nm}2020
-ENV kernel_nm 'GSA2020'
+ENV yaml_nm environment
+ENV env_nm notebooks
+ENV kernel_nm GSA2020
 
 # https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/Dockerfile
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -32,8 +32,9 @@ RUN conda update -n base conda --yes \
     && conda config --set channel_priority strict
 
 # Now install the packages then tidy up 
-COPY ${base_nm}.yml /tmp/
-RUN conda-env create -f /tmp/${base_nm}.yml \ 
+COPY ${yaml_nm}.yml /tmp/
+#RUN conda activate ${env_nm} \ 
+RUN conda env update -n ${env_nm} -f /tmp/${yaml_nm}.yml \ 
     && conda clean --all --yes --force-pkgs-dirs \
     && find /opt/conda/ -follow -type f -name '*.a' -delete \
     && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
@@ -41,12 +42,12 @@ RUN conda-env create -f /tmp/${base_nm}.yml \
     && conda list
 
 # Set paths for conda and PROJ
-ENV PATH /opt/conda/envs/${release_nm}/bin:$PATH
-ENV PROJ_LIB /opt/conda/envs/${release_nm}/share/proj/
+ENV PATH /opt/conda/envs/${env_nm}/bin:$PATH
+ENV PROJ_LIB /opt/conda/envs/${env_nm}/share/proj/
 # And configure the bash shell params 
 COPY init.sh /tmp/
 RUN cat /tmp/init.sh > ~/.bashrc 
-RUN echo "export PROJ_LIB=/opt/conda/envs/${release_nm}/share/proj/" >> ~/.bashrc
+RUN echo "export PROJ_LIB=/opt/conda/envs/${env_nm}/share/proj/" >> ~/.bashrc
 
 # Install jupyterlab extensions, but don't build
 # (saves some time over install and building each)
@@ -118,8 +119,7 @@ RUN python -c "import nltk; nltk.download('wordnet'); nltk.download('stopwords')
 USER root
 SHELL ["/bin/bash", "-c"]
 RUN . /opt/conda/etc/profile.d/conda.sh \
-    && conda activate ${release_nm} \
-    && python -m ipykernel install --name ${release_nm} --display-name ${kernel_nm} \
+    && python -m ipykernel install --display-name ${kernel_nm} \
     && ln -s /opt/conda/bin/jupyter /usr/local/bin
 
 #--- htop ---#
